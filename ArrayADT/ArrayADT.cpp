@@ -137,20 +137,25 @@ public:
         }
     }
 
-    int binarySearch(int number, int last, int first = 0) // 1,2,3,4
-    {
+    int binarySearch(int number, int last, int first = 0) 
+    {       
+        static int counter = 0;
         int mid = (last + first) / 2;
-    
-        if (number == arr[mid])
-        {
-            return mid;
+        counter++;
+        if (counter > 3)
+            return -2;
+        else {
+            if (number == arr[mid])
+            {
+                return mid;
+            }
+            else if (number > arr[mid])
+            {
+                binarySearch(number, last, mid + 1);
+            }
+            else
+                binarySearch(number, mid, mid - 1);
         }
-        else if (number > arr[mid])
-        {
-            binarySearch(number, last, mid);
-        }
-        else
-            binarySearch(number, mid, 0);
 
 
     }
@@ -159,13 +164,13 @@ public:
 
 int main()
 {
-    int arr1[10] = { 2,1,4,3,7,5,10 };
+    int arr1[10] = { 2,1,4,3,7,5,10,8 };
     Array myArray(arr1, 10);
     myArray.fillEmptiesWithDefaultNumber();
     myArray.displayArray();
     myArray.sort();
     myArray.displayArray();
-    cout<<myArray.binarySearch(10, myArray.getArrayLength());
+    cout<<myArray.binarySearch(123, myArray.getArrayLength());
  
     return 1;
 }
