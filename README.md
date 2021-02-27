@@ -1,1 +1,2 @@
 # ArrayADT
+Array adt operations.
