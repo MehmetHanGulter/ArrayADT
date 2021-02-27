@@ -136,6 +136,24 @@ public:
             sort(n + 1);
         }
     }
+
+    int binarySearch(int number, int last, int first = 0) // 1,2,3,4
+    {
+        int mid = (last + first) / 2;
+    
+        if (number == arr[mid])
+        {
+            return mid;
+        }
+        else if (number > arr[mid])
+        {
+            binarySearch(number, last, mid);
+        }
+        else
+            binarySearch(number, mid, 0);
+
+
+    }
     
 };
 
@@ -147,6 +165,7 @@ int main()
     myArray.displayArray();
     myArray.sort();
     myArray.displayArray();
+    cout<<myArray.binarySearch(10, myArray.getArrayLength());
  
     return 1;
 }
