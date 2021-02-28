@@ -120,6 +120,76 @@ public:
             return true;
         }
     }
+    int findMax(int n = 1)
+    {
+        static int compareNumber = arr[n-1];
+        int result = compareNumber;
+        if (n<getArrayLength()) 
+        {
+            if (arr[n] > compareNumber)
+            {
+                compareNumber = arr[n];
+                return findMax(n + 1);
+            }
+            return findMax(n + 1);
+        }
+        else
+        {
+            compareNumber = 0;
+            return result;
+        }
+
+    }
+    int findMin(int n = 1)
+    {
+        static int compareNumber = arr[n-1];
+        int result = compareNumber;
+        if (n < getArrayLength())
+        {
+            if (arr[n] < compareNumber)
+            {
+                compareNumber = arr[n];
+                return findMax(n + 1);
+            }
+            return findMax(n + 1);
+        }
+        else
+        {
+            compareNumber = 0;
+            return result;
+        }
+
+    }
+    int findSum(int n = 1) 
+    {
+        static int compareNumber = arr[n - 1];
+        int result = compareNumber;
+        if (n < getArrayLength())
+        {
+                compareNumber = compareNumber + arr[n];
+                return findSum(n + 1); 
+        }
+        else
+        {
+            compareNumber = 0;
+            return result;
+        }
+    }
+    int findAverage(int n = 1)
+    {
+        static int compareNumber = arr[n - 1];
+        int result = compareNumber;
+        if (n < getArrayLength())
+        {
+            compareNumber = compareNumber + arr[n];
+            return findSum(n + 1);
+        }
+        else
+        {
+            compareNumber = 0;
+            return result/getArrayLength();
+        }
+    }
     void sort(int n = 0)
     {
         if (n + 1 > getArrayLength()-1)
@@ -139,12 +209,11 @@ public:
 
     int binarySearch(int number, int last, int first = 0) 
     {       
-        static int counter = 0;
+   
         int mid = (last + first) / 2;
-        counter++;
-        if (counter > 3)
-            return -2;
-        else {
+        if (first <= last)
+        {
+
             if (number == arr[mid])
             {
                 return mid;
@@ -154,23 +223,96 @@ public:
                 binarySearch(number, last, mid + 1);
             }
             else
-                binarySearch(number, mid, mid - 1);
+                binarySearch(number, mid - 1, first);
         }
-
-
+        else
+            return -2;
     }
+
+    void reverse() 
+    {
+        int j = 0;
+
+        for (int i = getArrayLength()-1; i > getArrayLength()/2; i--)
+        {
+            swapArrMembers(i, j);
+            j++;
+        }
+    }
+
+    void leftRotate()
+    {
+        arr[getArrayLength()] = arr[0];
+        deleteByIndex(0);
+    }
+    void leftShift(int fromThisIndex = 0)
+    {
+        deleteByIndex(fromThisIndex);
+    }
+    void rightRotate()
+    {
+        int i = getArrayLength()-1;
+        int temp = arr[i];
+        while (i>-1) 
+        {
+            if (i == 0)
+            {
+                arr[i] = temp;
+                break;
+            }
+            arr[i] = arr[i - 1];
+            i--;
+        }
+    }
+    void rightShift(int fromThisIndex = 0)
+    {
+        int i = getArrayLength() - 1;
+        while (i > fromThisIndex-1)
+        {
+            if (i == fromThisIndex)
+            {
+                arr[i] = -1;
+                break;
+            }
+            arr[i] = arr[i - 1];
+            i--;
+        }
+    }
+    void InsertToSortedList(int number) 
+    {
+        int i = getArrayLength() - 1;
+        while (arr[i] > number)
+        {
+            i--;
+        }
+        insertByIndexAndNumber(i, number);          
+    }
+
+
     
 };
 
 int main()
 {
-    int arr1[10] = { 2,1,4,3,7,5,10,8 };
-    Array myArray(arr1, 10);
+    int arr1[20] = {3, 2, 1, 4, 11, 7, 5, 10, 8, 6, 9,30};
+    Array myArray(arr1, 20);
     myArray.fillEmptiesWithDefaultNumber();
+    myArray.displayArray();
+    myArray.reverse();
+    myArray.displayArray();
+    myArray.leftRotate();
+    myArray.displayArray();
+    myArray.rightRotate();
     myArray.displayArray();
     myArray.sort();
     myArray.displayArray();
-    cout<<myArray.binarySearch(123, myArray.getArrayLength());
+    myArray.InsertToSortedList(7);
+    myArray.displayArray();
+
+
+
+
  
     return 1;
+
 }
