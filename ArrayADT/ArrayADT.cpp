@@ -10,16 +10,17 @@ private:
     int defaultNumber = -1;
 public:
 
-    Array(int array[], int size)
+    Array(int size)
     {
         this->size = size;
-        arr = array;
+        arr = new int[size];
     }
+    
     void fillEmptiesWithDefaultNumber()
     {
         for (int i = 0; i < size; i++)
         {
-            if (arr[i] == 0)
+            if (arr[i] < 0)
             {
                 arr[i] = defaultNumber;
             }
@@ -207,7 +208,7 @@ public:
         }
     }
 
-    int binarySearch(int number, int last, int first = 0) 
+    int binarySearch(int number, int last , int first = 0) 
     {       
    
         int mid = (last + first) / 2;
@@ -287,6 +288,15 @@ public:
         }
         insertByIndexAndNumber(i, number);          
     }
+    void fillArrayRandomly(int howManyNumberToAdd)
+    {
+        int randomNumber; 
+        for (int i = 0; i < howManyNumberToAdd; i++)
+        {
+            randomNumber = rand() % 99 + 1;
+            arr[i] = randomNumber;
+        }
+    }
 
 
     
@@ -294,20 +304,14 @@ public:
 
 int main()
 {
-    int arr1[20] = {3, 2, 1, 4, 11, 7, 5, 10, 8, 6, 9,30};
-    Array myArray(arr1, 20);
+    
+    Array myArray(25);
+    myArray.fillArrayRandomly(12);
     myArray.fillEmptiesWithDefaultNumber();
-    myArray.displayArray();
-    myArray.reverse();
-    myArray.displayArray();
-    myArray.leftRotate();
-    myArray.displayArray();
-    myArray.rightRotate();
     myArray.displayArray();
     myArray.sort();
     myArray.displayArray();
-    myArray.InsertToSortedList(7);
-    myArray.displayArray();
+    cout << myArray.binarySearch(54,myArray.getArrayLength());
 
 
 
